@@ -36,9 +36,22 @@ case $opcion in
     clear
    ;;
  4) read -p "Archivo (${current_path}):" path
-   ls -la $path
+  if [ -f $path ]
+  then
+   echo "[1] Copiar el archivo"
+   echo "[2] Mover el archivo"
+   echo "[3] Cambiar de nombre al archivo"
+   echo "[4] Borrar el archivo"
+   echo "[5] Cancelar operación"
+   read -p "Introduce una opcion: " opcion
+     case $opcion in
+     1) cp $path "${path}-copy";;
+     esac
+  else
+   echo "El fichero $FICHERO no existe"
    sleep 5
    clear
+  fi
    ;;       
 esac
 done
