@@ -37,7 +37,7 @@ case $opcion in
    fi
    ;;
  2) read -p "Nombre (${current_path}):" path
-    mkdir $path && echo "Archivo creado con exito" 2> .error
+    mkdir $path && echo "Directorio creado con exito" 2> .error
     cat .error
     sleep 5
     clear
@@ -83,7 +83,7 @@ case $opcion in
         esac
      esac
   else
-   echo "El fichero $FICHERO no existe"
+   echo "El fichero $file no existe"
    sleep 5
    clear
   fi
