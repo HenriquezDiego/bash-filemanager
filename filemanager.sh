@@ -9,6 +9,17 @@ error=""
 name=""
 confirm=""
 
+function continue(){
+   echo ""
+   read -t5 -p "Pulse Enter para volver al menú" key
+   if [ $key==$‘\x0a’ ]
+   then
+   clear
+   fi
+   clear
+}
+
+
 read -sp 'Password: ' password
 echo ""
 clear
@@ -32,8 +43,7 @@ case $opcion in
    if [ -d "$path" ]
    then
    ls -lha $path
-   sleep 5
-   clear
+   continue
    else
    read -t5 -p "No existe la ruta indicada ${path}. Pulse Enter para volver al menú" key
    if [ $key==$‘\x0a’ ]
