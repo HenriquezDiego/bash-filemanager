@@ -24,16 +24,22 @@ echo "[5] Salir"
 read -p "Introduce una opcion: " opcion
 clear
 case $opcion in
-1) read -p "Ruta (${current_path}):" path
-   if [ -d "$current_path" ]
+1) read -t5 -p "Ruta (${current_path}):" path
+   if [ -z "$path" ]
+   then
+   path=$current_path
+   fi
+   if [ -d "$path" ]
    then
    ls -lha $path
    sleep 5
    clear
    else
-   echo "El directorio ${path} no existe"
-   sleep 2
+   read -t5 -p "No existe la ruta indicada ${path}. Pulse Enter para volver al menú" key
+   if [ $key==$‘\x0a’ ]
+   then
    clear
+   fi
    fi
    ;;
  2) read -p "Nombre (${current_path}):" path
@@ -61,7 +67,10 @@ case $opcion in
    echo "[5] Cancelar operación"
    read -p "Introduce una opcion: " opcion
      case $opcion in
-     1) cp $file "${file}-copy";;
+     1) cp $file "${file}-copy"
+        echo "El archivo se ha copiado con exito"
+        sleep 2
+        clear;;
      2) read -p "Ruta de destino :" path
         if [ -d "$path" ]
         then
@@ -70,6 +79,7 @@ case $opcion in
           clear
         else
           echo "El directorio ${path} no existe"
+          sleep 2
         fi
         clear;;
      3) read -p "Renombrar :" name
