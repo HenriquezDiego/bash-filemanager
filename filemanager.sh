@@ -1,7 +1,6 @@
 #!/bin/bash
 var=0
 opcion=0
-subopcion=0
 current_path=$(pwd)
 path=""
 file_number=1
@@ -56,6 +55,8 @@ if [ "$password" == "Catolica10" ]; then
          if [ ! -d "$path" ]
          then
             mkdir $path
+            echo "El directorio se ha creado correctamente"
+            continue
          else
             echo "Ya existe un directorio con ese nombre"
             continue
@@ -71,6 +72,7 @@ if [ "$password" == "Catolica10" ]; then
     4) read -p "Nombre del archivo:" file
        if [ -f $file ]
        then
+       subopcion=0
          while [ $subopcion -ne 5 ]
          do
             clear
@@ -100,31 +102,33 @@ if [ "$password" == "Catolica10" ]; then
                then
                  mv ${current_path}/$file $path/$file
                  echo "El archivo se ha movido con exito"
-                 continue
+                 break
                else
                  echo "El directorio ${path} no existe"
                  continue
                fi
                clear;;
-            3) read -p "Renombrar :" name
-                  mv ${current_path}/$file ${current_path}/$name
+            3) read -p "Renombrar (${current_path}/${file}):" name
+                  mv $file $name
                   file=$name
                   echo "El archivo se ha renombrado con éxito"
                   continue;;
             4) read -p "Esta seguro que quiere eliminar el archivo? (s/n):" confirm
                   case $confirm in
-                  [sS]* ) rm $file
+                  [sS]* ) 
+                  rm $file
+                  echo "Archivo eliminado con éxito"
                   break;;
                   [nN]* ) continue;;
                   * ) echo "Por favor ingres S/s N/n."
                   esac;;
              5) break;;  
             esac
-    done
+          done
             continue  
       else
          echo "El fichero $file no existe"
-      continue
+         continue
      fi     
    esac
 done
